@@ -1,0 +1,15 @@
+{
+  "name": "clouetb-geth",
+  "version": "0.1.0",
+  "author": "clouetb",
+  "summary": "A simple module for installing go-ethereum.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/clouetb/puppet-geth.git",
+  "project_page": "https://github.com/clouetb/puppet-geth",
+  "issues_url": "https://github.com/clouetb/puppet-geth/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
