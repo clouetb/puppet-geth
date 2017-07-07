@@ -43,6 +43,8 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class geth {
-
+    include geth::install
+    include geth::config
+    include geth::service
 
 }

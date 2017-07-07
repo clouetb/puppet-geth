@@ -6,7 +6,7 @@ class geth::install inherits geth {
     descr => 'OKAY RPM repository',
     enabled => 1,
     gpgcheck => 1,
-    gpgkey => '/etc/pki/rpm-gpg/RPM-GPG-KEY-OKAY',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-OKAY',
   }
 
   package { 'go-ethereum':
