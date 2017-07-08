@@ -1,0 +1,13 @@
+[Unit]
+Description=Go Ethereum client
+Wants=basic.target
+After=basic.target network.target
+
+[Service]
+WorkingDirectory=/home/geth
+User=geth
+ExecStart=/usr/bin/geth 
+Type=simple
+
+[Install]
+WantedBy=default.target

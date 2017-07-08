@@ -5,8 +5,7 @@ class geth::install inherits geth {
     baseurl => 'http://repo.okay.com.mx/centos/$releasever/$basearch/release',
     descr => 'OKAY RPM repository',
     enabled => 1,
-    gpgcheck => 1,
-    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-OKAY',
+    gpgcheck => 0,
   }
 
   package { 'go-ethereum':
@@ -21,6 +20,25 @@ class geth::install inherits geth {
   user { 'geth':
     ensure => 'present',
     groups => 'geth',
+    managehome => true,
+  }
+
+  file { 'datadir':
+    path    => '/home/geth/data',
+    ensure  => 'directory',
+    owner   => 'geth',
+  }
+
+  file { '/lib/systemd/system/geth.service':
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => template('geth/geth.service.erb'),
+  }~>
+  exec { 'geth-systemd-reload':
+    command     => 'systemctl daemon-reload',
+    path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
+    refreshonly => true,
   }
 
 }
