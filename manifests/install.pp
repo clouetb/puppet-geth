@@ -12,6 +12,10 @@ class geth::install
   Integer $minerthreads   = 1,
   String  $nat            = 'any',
   Integer $maxpeers       = 0,
+  Boolean $nodiscover     = true,
+  Boolean $rpc            = true,
+  Boolean $mine           = true,
+  Boolean $autodag        = true,
 ) 
 inherits geth {
 

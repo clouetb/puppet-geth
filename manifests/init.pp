@@ -54,6 +54,10 @@ class geth (
   Integer $minerthreads     = $geth::install::minerthreads,
   String  $nat              = $geth::install::nat,
   Integer $maxpeers         = $geth::install::maxpeers,
+  Boolean $nodiscover       = $geth::install::nodiscover,
+  Boolean $rpc              = $geth::install::rpc,
+  Boolean $mine             = $geth::install::mine,
+  Boolean $autodag          = $geth::install::autodag,
   String  $init_data        = $geth::config::init_data, 
   String  $account_password = $geth::config::account_password,
 )
