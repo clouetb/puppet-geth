@@ -1,5 +1,19 @@
 # == Class: geth::install
-class geth::install inherits geth {
+class geth::install
+(
+  String  $identity       = 'Participant1',
+  String  $networkid      = '1234321',
+  Integer $unlock         = 0,
+  Integer $port           = 30999,
+  String  $rpcaddr        = 'localhost',
+  Integer $rpcport        = 8545,
+  String  $rpcapi         = 'admin,eth,net,web3',
+  String  $rpccorsdomain  = '*',
+  Integer $minerthreads   = 1,
+  String  $nat            = 'any',
+  Integer $maxpeers       = 0,
+) 
+inherits geth {
 
   yumrepo { 'okay-repo':
     baseurl => 'http://repo.okay.com.mx/centos/$releasever/$basearch/release',
@@ -23,13 +37,8 @@ class geth::install inherits geth {
     managehome => true,
   }
 
-  file { 'datadir':
-    path    => '/home/geth/data',
-    ensure  => 'directory',
-    owner   => 'geth',
-  }
-
-  file { '/lib/systemd/system/geth.service':
+  file { 'geth.service':
+    path    => '/lib/systemd/system/geth.service',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
@@ -40,6 +49,19 @@ class geth::install inherits geth {
     path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
     refreshonly => true,
   }
+  
+  file { 'datadir':
+    path    => '/home/geth/data',
+    ensure  => 'directory',
+    owner   => 'geth',
+    mode    => '0744',
+  }
 
+  file { 'logdir':
+    path     => '/var/log/geth',
+    ensure   => 'directory',
+    owner    => 'geth',
+    mode     => '0755',
+  }
 }
 

@@ -42,9 +42,23 @@
 #
 # Copyright 2017 Your name here, unless otherwise noted.
 #
-class geth {
+class geth (
+  String  $identity         = $geth::install::identity,
+  String  $networkid        = $geth::install::networkid,
+  Integer $unlock           = $geth::install::unlock,
+  Integer $port             = $geth::install::port,
+  String  $rpcaddr          = $geth::install::rpcaddr,
+  Integer $rpcport          = $geth::install::rpcport,
+  String  $rpcapi           = $geth::install::rpcapi,
+  String  $rpccorsdomain    = $geth::install::rpccorsdomain,
+  Integer $minerthreads     = $geth::install::minerthreads,
+  String  $nat              = $geth::install::nat,
+  Integer $maxpeers         = $geth::install::maxpeers,
+  String  $init_data        = $geth::config::init_data, 
+  String  $account_password = $geth::config::account_password,
+)
+{
     include geth::install
     include geth::config
     include geth::service
-
 }

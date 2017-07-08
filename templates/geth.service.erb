@@ -6,7 +6,24 @@ After=basic.target network.target
 [Service]
 WorkingDirectory=/home/geth
 User=geth
-ExecStart=/usr/bin/geth 
+ExecStart=nohup geth 	--datadir "<%= ${datadir} %>" \
+						--identity "<%= ${identity} %>" \
+						--networkid "<%= ${networkid} %>" \
+						--nodiscover \
+						--password <%= ${geth::config::passfile} %> \
+						--unlock "<%= ${unlock} %>" \
+						--port "<%= ${port} %>"  \
+						--rpc \
+						--rpcaddr "<%= ${rpcaddr} %>" \
+						--rpcport "<%= ${rpcport} %>" \
+						--rpcapi "<%= ${rpcapi} %>" \
+						--rpccorsdomain "<%= ${rpccorsdomain} %>" \
+						--mine \
+						--minerthreads "<%= ${minerthreads} %>" \
+						--autodag \
+						--nat "<%= ${nat} %>" \
+						--maxpeers "<%= ${maxpeers} %>" \
+						2>> <%= ${geth::config::logdir} %>/geth.log 
 Type=simple
 
 [Install]
