@@ -42,7 +42,7 @@
 #
 # Copyright 2017 Your name here, unless otherwise noted.
 #
-class geth (
+class geth(
   String  $identity         = 'Participant1',
   String  $networkid        = '1234321',
   Integer $unlock           = 0,
@@ -58,7 +58,7 @@ class geth (
   Boolean $rpc              = true,
   Boolean $mine             = true,
   Boolean $autodag          = true,
-  String  $init_data        = '/home/geth/data', 
+  String  $init_data        = '/home/geth/data',
   String  $account_password = 'P4ssw0rd!',
 )
 {

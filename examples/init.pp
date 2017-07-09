@@ -11,5 +11,5 @@
 #
 #include ::geth
 
-class { 'geth': 
+class {'geth':
 }

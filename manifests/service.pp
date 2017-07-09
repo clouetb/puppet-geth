@@ -1,7 +1,7 @@
 # == Class: geth::service
-class geth::service inherits geth {
+class geth::service inherits geth{
   service { 'geth':
-    ensure   => stopped,
-    enable   => true,
+    ensure => stopped,
+    enable => true,
   }
 }
