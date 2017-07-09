@@ -9,4 +9,7 @@
 # Learn more about module testing here:
 # https://docs.puppet.com/guides/tests_smoke.html
 #
-include ::geth
+#include ::geth
+
+class { 'geth': 
+}

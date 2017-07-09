@@ -1,21 +1,23 @@
 # == Class: geth::install
 class geth::install
 (
-  String  $identity       = 'Participant1',
-  String  $networkid      = '1234321',
-  Integer $unlock         = 0,
-  Integer $port           = 30999,
-  String  $rpcaddr        = 'localhost',
-  Integer $rpcport        = 8545,
-  String  $rpcapi         = 'admin,eth,net,web3',
-  String  $rpccorsdomain  = '*',
-  Integer $minerthreads   = 1,
-  String  $nat            = 'any',
-  Integer $maxpeers       = 0,
-  Boolean $nodiscover     = true,
-  Boolean $rpc            = true,
-  Boolean $mine           = true,
-  Boolean $autodag        = true,
+  String  $identity         = $geth::identity,
+  String  $networkid        = $geth::networkid,
+  Integer $unlock           = $geth::unlock,
+  Integer $port             = $geth::port,
+  String  $rpcaddr          = $geth::rpcaddr,
+  Integer $rpcport          = $geth::rpcport,
+  String  $rpcapi           = $geth::rpcapi,
+  String  $rpccorsdomain    = $geth::rpccorsdomain,
+  Integer $minerthreads     = $geth::minerthreads,
+  String  $nat              = $geth::nat,
+  Integer $maxpeers         = $geth::maxpeers,
+  Boolean $nodiscover       = $geth::nodiscover,
+  Boolean $rpc              = $geth::rpc,
+  Boolean $mine             = $geth::mine,
+  Boolean $autodag          = $geth::autodag,
+  String  $init_data        = $geth::init_data, 
+  String  $account_password = $geth::account_password,
 ) 
 inherits geth {
 
@@ -46,7 +48,7 @@ inherits geth {
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    content => template('geth/geth.service.erb'),
+    content => epp('geth/geth.service.erb'),
   }~>
   exec { 'geth-systemd-reload':
     command     => 'systemctl daemon-reload',

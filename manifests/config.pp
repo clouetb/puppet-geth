@@ -1,12 +1,12 @@
 # == Class: geth::config
 class geth::config (
-  $init_data        = '/home/geth/data', 
-  $account_password = 'P4ssw0rd!',
+  String  $init_data        = $geth::init_data, 
+  String  $account_password = $geth::account_password,
 ) 
 inherits geth {
   exec { 'geth-init-data':
     cwd         => '/home/geth',
-    command     => 'geth --datadir data init ${init_data}',
+    command     => "geth data init --datadir $init_data",
     user        => 'geth',
     path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
   }~>

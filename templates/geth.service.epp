@@ -1,0 +1,30 @@
+[Unit]
+Description=Go Ethereum client
+Wants=basic.target
+After=basic.target network.target
+
+[Service]
+WorkingDirectory=/home/geth
+User=geth
+ExecStart=nohup geth 	--datadir "<%= $init_data %>" \
+						--identity "<%= $identity %>" \
+						--networkid "<%= $networkid %>" \
+						<% if $nodiscover == true %>--nodiscover<% end %> \
+						--password <%= $passfile %> \
+						--unlock "<%= $unlock %>" \
+						--port "<%= $port %>"  \
+						<% if $rpc == true %>--rpc \
+						--rpcaddr "<%= $rpcaddr %>" \
+						--rpcport "<%= $rpcport %>" \
+						--rpcapi "<%= $rpcapi %>" \
+						--rpccorsdomain "<%= $rpccorsdomain %>"<% end %> \
+						<% if $mine == true %>--mine \
+						--minerthreads "<%= $minerthreads %>"<% end %> \
+						<% if $autodag %>--autodag<% end %> \
+						--nat "<%= $nat %>" \
+						--maxpeers "<%= $maxpeers %>" \
+						2>> <%= $logdir %>/geth.log 
+Type=simple
+
+[Install]
+WantedBy=default.target
