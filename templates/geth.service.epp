@@ -9,7 +9,7 @@ User=geth
 ExecStart=nohup geth	--datadir "<%= $geth::datadir %>" \
 						--identity "<%= $geth::identity %>" \
 						--networkid "<%= $geth::networkid %>" \
-						<% if $geth::nodiscover { %> --nodiscover<% } %> \
+						<% if $geth::nodiscover { %>--nodiscover<% } %> \
 						--password <%= $geth::passfile %> \
 						--unlock "<%= $geth::unlock %>" \
 						--port "<%= $geth::port %>"  \
