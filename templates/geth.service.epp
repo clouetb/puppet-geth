@@ -20,7 +20,7 @@ ExecStart=nohup geth 	--datadir "<%= $init_data %>" \
 						--rpccorsdomain "<%= $rpccorsdomain %>"<% end %> \
 						<% if $mine == true %>--mine \
 						--minerthreads "<%= $minerthreads %>"<% end %> \
-						<% if $autodag %>--autodag<% end %> \
+						<% if $autodag == true %>--autodag<% end %> \
 						--nat "<%= $nat %>" \
 						--maxpeers "<%= $maxpeers %>" \
 						2>> <%= $logdir %>/geth.log 
