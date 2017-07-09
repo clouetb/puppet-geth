@@ -1,6 +1,7 @@
 # == Class: geth::config
 class geth::config (
   String  $datadir          = $geth::datadir,
+  String  $init_data        = $geth::init_data,
   String  $account_password = $geth::account_password,
   String  $passfile         = $geth::passfile,
   String  $logdir           = $geth::logdir,
@@ -8,7 +9,7 @@ class geth::config (
 inherits geth {
   exec { 'geth-init-data':
     cwd     => '/home/geth',
-    command => "geth data init --datadir ${datadir} 2>> ${logdir}/init-data.log",
+    command => "geth data init --datadir ${datadir} ${init_data} 2>> ${logdir}/init-data.log",
     user    => 'geth',
     # Command is so long ?!?
     timeout => 1800,

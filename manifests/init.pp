@@ -59,6 +59,7 @@ class geth(
   Boolean $mine             = true,
   Boolean $autodag          = true,
   String  $datadir          = '/home/geth/data',
+  String  $init_data        = '/home/geth/data/customGENESIS.json',
   String  $passfile         = '/home/geth/passfile',
   String  $logdir           = '/var/log/geth',
   String  $account_password = 'P4ssw0rd!',
