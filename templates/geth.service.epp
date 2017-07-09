@@ -6,24 +6,24 @@ After=basic.target network.target
 [Service]
 WorkingDirectory=/home/geth
 User=geth
-ExecStart=nohup geth 	--datadir "<%= $init_data %>" \
-						--identity "<%= $identity %>" \
-						--networkid "<%= $networkid %>" \
-						<% if $nodiscover == true %>--nodiscover<% end %> \
-						--password <%= $passfile %> \
-						--unlock "<%= $unlock %>" \
-						--port "<%= $port %>"  \
-						<% if $rpc == true %>--rpc \
-						--rpcaddr "<%= $rpcaddr %>" \
-						--rpcport "<%= $rpcport %>" \
-						--rpcapi "<%= $rpcapi %>" \
-						--rpccorsdomain "<%= $rpccorsdomain %>"<% end %> \
-						<% if $mine == true %>--mine \
-						--minerthreads "<%= $minerthreads %>"<% end %> \
-						<% if $autodag == true %>--autodag<% end %> \
-						--nat "<%= $nat %>" \
-						--maxpeers "<%= $maxpeers %>" \
-						2>> <%= $logdir %>/geth.log 
+ExecStart=nohup geth	--datadir "<%= $geth::datadir %>" \
+						--identity "<%= $geth::identity %>" \
+						--networkid "<%= $geth::networkid %>" \
+						<% if $geth::nodiscover { %> --nodiscover<% } %> \
+						--password <%= $geth::passfile %> \
+						--unlock "<%= $geth::unlock %>" \
+						--port "<%= $geth::port %>"  \
+						<% if $geth::rpc { %>--rpc \
+						--rpcaddr "<%= $geth::rpcaddr %>" \
+						--rpcport "<%= $geth::rpcport %>" \
+						--rpcapi "<%= $geth::rpcapi %>" \
+						--rpccorsdomain "<%= $geth::rpccorsdomain %>"<% } %> \
+						<% if $geth::mine { %>--mine \
+						--minerthreads "<%= $geth::minerthreads %>"<% } %> \
+						<% if $geth::autodag { %>--autodag<% } %> \
+						--nat "<%= $geth::nat %>" \
+						--maxpeers "<%= $geth::maxpeers %>" \
+						2>> <%= $geth::logdir %>/geth.log 
 Type=simple
 
 [Install]

@@ -58,7 +58,9 @@ class geth(
   Boolean $rpc              = true,
   Boolean $mine             = true,
   Boolean $autodag          = true,
-  String  $init_data        = '/home/geth/data',
+  String  $datadir          = '/home/geth/data',
+  String  $passfile         = '/home/geth/passfile',
+  String  $logdir           = '/var/log/geth',
   String  $account_password = 'P4ssw0rd!',
 )
 {

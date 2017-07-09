@@ -16,21 +16,23 @@ class geth::install
   Boolean $rpc              = $geth::rpc,
   Boolean $mine             = $geth::mine,
   Boolean $autodag          = $geth::autodag,
-  String  $init_data        = $geth::init_data, 
   String  $account_password = $geth::account_password,
-) 
+  String  $datadir          = $geth::datadir,
+  String  $passfile         = $geth::passfile,
+  String  $logdir           = $geth::logdir,
+)
 inherits geth {
 
   yumrepo { 'okay-repo':
-    baseurl => 'http://repo.okay.com.mx/centos/$releasever/$basearch/release',
-    descr => 'OKAY RPM repository',
-    enabled => 1,
+    baseurl  => 'http://repo.okay.com.mx/centos/$releasever/$basearch/release',
+    descr    => 'OKAY RPM repository',
+    enabled  => 1,
     gpgcheck => 0,
   }
 
   package { 'go-ethereum':
-    ensure => installed,
-    require => Yumrepo["okay-repo"],
+    ensure  => installed,
+    require => Yumrepo['okay-repo'],
   }
 
   group { 'geth':
@@ -38,8 +40,8 @@ inherits geth {
   }
 
   user { 'geth':
-    ensure => 'present',
-    groups => 'geth',
+    ensure     => 'present',
+    groups     => 'geth',
     managehome => true,
   }
 
@@ -48,26 +50,26 @@ inherits geth {
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    content => epp('geth/geth.service.erb'),
-  }~>
-  exec { 'geth-systemd-reload':
+    content => epp('geth/geth.service.epp'),
+  }
+  ~> exec { 'geth-systemd-reload':
     command     => 'systemctl daemon-reload',
     path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
     refreshonly => true,
   }
-  
+
   file { 'datadir':
-    path    => '/home/geth/data',
-    ensure  => 'directory',
-    owner   => 'geth',
-    mode    => '0744',
+    ensure => 'directory',
+    path   => "${datadir}",
+    owner  => 'geth',
+    mode   => '0744',
   }
 
   file { 'logdir':
-    path     => '/var/log/geth',
-    ensure   => 'directory',
-    owner    => 'geth',
-    mode     => '0755',
+    ensure => 'directory',
+    path   => "${logdir}",
+    owner  => 'geth',
+    mode   => '0755',
   }
 }
 
