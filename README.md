@@ -3,14 +3,17 @@
 #### Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with geth](#setup)
+2. [Setup - The basics of getting started with geth](#setup)
     * [What geth affects](#what-geth-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with geth](#beginning-with-geth)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-1. [Limitations - OS compatibility, etc.](#limitations)
-1. [Development - Guide for contributing to the module](#development)
+3. [Usage - Configuration options and additional functionality](#usage)
+4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+5. [Limitations - OS compatibility, etc.](#limitations)
+6. [Development - Guide for contributing to the module](#development)
+7. [Release Notes/Contributors/Etc](#release-notes)
+8. [License](#license)
+
 
 ## Description
 
