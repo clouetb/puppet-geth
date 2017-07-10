@@ -4,27 +4,29 @@ Wants=basic.target
 After=basic.target network.target
 
 [Service]
-WorkingDirectory=/home/geth
-User=geth
-ExecStart=nohup geth	--datadir "<%= $geth::datadir %>" \
-						--identity "<%= $geth::identity %>" \
-						--networkid "<%= $geth::networkid %>" \
-						<% if $geth::nodiscover { %>--nodiscover<% } %> \
-						--password <%= $geth::passfile %> \
-						--unlock "<%= $geth::unlock %>" \
-						--port "<%= $geth::port %>"  \
-						<% if $geth::rpc { %>--rpc \
-						--rpcaddr "<%= $geth::rpcaddr %>" \
-						--rpcport "<%= $geth::rpcport %>" \
-						--rpcapi "<%= $geth::rpcapi %>" \
-						--rpccorsdomain "<%= $geth::rpccorsdomain %>"<% } %> \
-						<% if $geth::mine { %>--mine \
-						--minerthreads "<%= $geth::minerthreads %>"<% } %> \
-						<% if $geth::autodag { %>--autodag<% } %> \
-						--nat "<%= $geth::nat %>" \
-						--maxpeers "<%= $geth::maxpeers %>" \
-						2>> <%= $geth::logdir %>/geth.log 
+WorkingDirectory=/home/<%= $geth::user %>
+User=<%= $geth::user %>
+ExecStart=/bin/geth \
+                    --datadir "<%= $geth::datadir %>" \
+                    --identity "<%= $geth::identity %>" \
+                    --networkid "<%= $geth::networkid %>" \
+                    <% if $geth::nodiscover { %>--nodiscover<% } %> \
+                    --password <%= $geth::passfile %> \
+                    --unlock "<%= $geth::unlock %>" \
+                    --port "<%= $geth::port %>"  \
+                    <% if $geth::rpc { %>--rpc \
+                    --rpcaddr "<%= $geth::rpcaddr %>" \
+                    --rpcport "<%= $geth::rpcport %>" \
+                    --rpcapi "<%= $geth::rpcapi %>" \
+                    --rpccorsdomain "<%= $geth::rpccorsdomain %>"<% } %> \
+                    <% if $geth::mine { %>--mine \
+                    --minerthreads "<%= $geth::minerthreads %>"<% } %> \
+                    <% if $geth::autodag { %>--autodag<% } %> \
+                    --nat "<%= $geth::nat %>" \
+                    --maxpeers "<%= $geth::maxpeers %>" \
+                    >> <%= $geth::logdir %>/geth.log 2>&1
 Type=simple
-
+StandardOutput=syslog+console
+StandardError=syslog+console
 [Install]
 WantedBy=default.target
