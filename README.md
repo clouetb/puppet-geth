@@ -14,71 +14,145 @@
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
-
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+clouetb-geth installs and configures go-ethereum on CentOS.
+It relies upon the package provided on the OKAY RPM repository (https://okay.com.mx/en/blog/rpm-repositories-for-centos-6-and-7.html).
+It also provides a custom facts plugin.
 
 ## Setup
 
-### What geth affects **OPTIONAL**
+### What geth affects
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+Installs the package from the above-mentioned repository. Creates an unprivileged user (with its home directory) for running go-ethereum as a systemd service unit. Also installs and runs ntpd from the centos repository as Ethereum requires proper time synchronization.
 
-If there's more that they should know about, though, this is the place to mention:
+### Setup Requirements
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
+Only tested on CentOS 7.
+Uses puppet-stdlib.
 
 ### Beginning with geth
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+If you're happy with the defaults, just enter :
+```puppet
+class {'geth':
+}
+# Trigger install
+class {'geth::install':}
+# Run configuration and account creation
+class {'geth::config':}
+# Enable and run geth as a systemd service unit
+class {'geth::service':}
+```
+
+Otherwise, feel free to configure :
+```puppet
+# Generic parameters
+class {'geth':
+  user             => 'my_user',
+  identity         => 'MyIdentityOnEthereum',
+  networkid        => 9999999999,
+  init_data        => '/tmp/genesis.json',
+  account_password => 'V3ryS3cr3tP4ssw0rd',
+  rpcaddr          => '192.168.1.1',
+  ...
+}
+# Trigger install
+class {'geth::install':}
+# Run configuration and account creation
+class {'geth::config':}
+# Enable and run geth as a systemd service unit
+class {'geth::service':}
+```
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+Please refer to manifests/init.pp for an extensive list of supported parameters or see below.
 
 ## Reference
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+* String  $user
+The user Ethereum will run as 
+(default: geth)
+* String  $identity
+The identity of this node in the blockchain
+(default: geth_identity)
+* String  $networkid
+The id of the network geth must connect to
+(default: 1234567890)
+* Integer $unlock
+Shall we unlock the account (0 for not unlocking or id of the account)
+(default: 0)
+* Integer $port
+The port geth must listen on
+(default: 30999)
+* String  $rpcaddr
+The address geth will bind to for exposing the RPC interface
+(default: localhost)
+* Integer $rpcport
+The port geth will bind to for exposing the RPC interface
+(default: 8545)
+* String  $rpcapi
+The RPC API that will be enabled
+(default: 'admin,eth,net,web3')
+* String  $rpccorsdomain
+Cross domain that will be entitled to send requests to geth RPC API
+(default: *)
+* Integer $minerthreads
+The number of threads that will do mining
+(default: 1)
+* String  $nat
+The kind of nat that will be used for exposing the listening port
+(default: any)
+* Integer $maxpeers
+The maximum number of peers allowed to connect. 0 for no max.
+(default: 0)
+* Boolean $nodiscover
+Shall we prevent new nodes discovery?
+(default: true = no node will be discovered)
+* Boolean $rpc
+Shall we enable RPC API?
+(default: true)
+* Boolean $mine
+Shall we mine?
+(default: true)
+* Boolean $autodag
+Shall we pregenerate DAG?
+(default: true)
+* String  $datadir
+The directory where geth data will be stored
+(default: /home/${user}/data)
+* String  $init_data
+The parameters for initializing the blockchain
+(default /home/${user}/genesis.json)
+* String  $passfile
+The file where the account password will be stored
+(default: /home/${user}/passfile)
+* String  $logdir
+The directory where all the logs will be stored
+(default: /var/log/geth)
+* String  $account_password
+The accound password
+(default: P4ssw0rd!)
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+Only tested on CentOS 7.
+This module was developed for an inhouse project, so it doesn't support all the ethereum functionalities so far.
+I'm far from an expert in Ethereum, documentation might not be completely accurate regarding Ethereum internals.
+I'm far from an expert in Puppet as well. If your node starts to smoke while using this module, you should probably file an issue.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+Pull requests, comments, issues are welcome.
 
-## Release Notes/Contributors/Etc. **Optional**
+## Release Notes/Contributors/Etc.
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
-# puppet-geth
+* 0.5 - Initial version published on puppet forge.
+
+## License
+
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
