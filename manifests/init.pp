@@ -43,8 +43,9 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class geth(
-  String  $identity         = 'Participant1',
-  String  $networkid        = '1234321',
+  String  $user             = 'geth',
+  String  $identity         = 'geth_identity',
+  String  $networkid        = '1234567890',
   Integer $unlock           = 0,
   Integer $port             = 30999,
   String  $rpcaddr          = 'localhost',
@@ -58,14 +59,10 @@ class geth(
   Boolean $rpc              = true,
   Boolean $mine             = true,
   Boolean $autodag          = true,
-  String  $datadir          = '/home/geth/data',
-  String  $init_data        = '/home/geth/data/customGENESIS.json',
-  String  $passfile         = '/home/geth/passfile',
+  String  $datadir          = "/home/${user}/data",
+  String  $init_data        = "/home/${user}/genesis.json",
+  String  $passfile         = "/home/${user}/passfile",
   String  $logdir           = '/var/log/geth',
   String  $account_password = 'P4ssw0rd!',
 )
-{
-    include geth::install
-    include geth::config
-    include geth::service
-}
+{}

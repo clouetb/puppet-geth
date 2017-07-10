@@ -1,6 +1,7 @@
 # == Class: geth::install
 class geth::install
 (
+  String  $user             = $geth::user,
   String  $identity         = $geth::identity,
   String  $networkid        = $geth::networkid,
   Integer $unlock           = $geth::unlock,
@@ -21,7 +22,7 @@ class geth::install
   String  $passfile         = $geth::passfile,
   String  $logdir           = $geth::logdir,
 )
-inherits geth {
+{
 
   yumrepo { 'okay-repo':
     baseurl  => 'http://repo.okay.com.mx/centos/$releasever/$basearch/release',
@@ -35,18 +36,26 @@ inherits geth {
     require => Yumrepo['okay-repo'],
   }
 
-  group { 'geth':
-    ensure => 'present',
+  # Proper time synchronization is needed for connecting to the blockchain
+  package { 'ntp':
+    ensure => installed,
+  }
+  ~> service { 'ntpd':
+    ensure => running,
+    enable => true,
   }
 
-  user { 'geth':
-    ensure     => 'present',
-    groups     => 'geth',
+  group { $user:
+    ensure => present,
+  }
+
+  user { $user:
+    ensure     => present,
+    groups     => $user,
     managehome => true,
   }
 
-  file { 'geth.service':
-    path    => '/lib/systemd/system/geth.service',
+  file { '/lib/systemd/system/geth.service':
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
@@ -58,17 +67,15 @@ inherits geth {
     refreshonly => true,
   }
 
-  file { 'datadir':
-    ensure => 'directory',
-    path   => "${datadir}",
-    owner  => 'geth',
+  file { $datadir:
+    ensure => directory,
+    owner  => $user,
     mode   => '0744',
   }
 
-  file { 'logdir':
-    ensure => 'directory',
-    path   => "${logdir}",
-    owner  => 'geth',
+  file { $logdir:
+    ensure => directory,
+    owner  => $user,
     mode   => '0755',
   }
 }
