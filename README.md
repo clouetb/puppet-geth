@@ -150,6 +150,8 @@ Pull requests, comments, issues are welcome.
 ## Release Notes/Contributors/Etc.
 
 * 0.5 - Initial version published on puppet forge.
+* 0.5.1 - Service now started after install.
+* 0.5.2 - Changed metadata to comply with puppet forge's recommendation.
 
 ## License
 
