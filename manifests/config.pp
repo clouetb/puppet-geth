@@ -9,9 +9,9 @@ class geth::config (
 )
 {
   exec { "geth --datadir ${datadir} init ${init_data} >> ${logdir}/init-data.log 2>&1":
-    cwd     => "/home/${user}",
-    user    => 'geth',
-    path    => [ '/usr/bin', '/bin', '/usr/sbin' ],
+    cwd  => "/home/${user}",
+    user => 'geth',
+    path => [ '/usr/bin', '/bin', '/usr/sbin' ],
   }
 
   ~> file { $passfile:
