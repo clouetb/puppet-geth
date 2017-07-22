@@ -2,7 +2,7 @@
 class geth::makedag (
   String  $user         = $geth::user,
   String  $ethash_path  = $geth::ethash_path,
-  String  $block_number = $geth::block_number,
+  Integer  $block_number = $geth::block_number,
   String  $logdir       = $geth::logdir,
 )
 {
