@@ -6,6 +6,12 @@ class geth::makedag (
   String  $logdir       = $geth::logdir,
 )
 {
+  file { $ethash_path:
+    ensure => directory,
+    owner  => $user,
+    mode   => '0755',
+  }
+
   exec { "geth makedag ${block_number} ${ethash_path} >> ${logdir}/init-dag.log 2>&1":
     cwd     => "/home/${user}",
     user    => $user,
