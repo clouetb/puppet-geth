@@ -1,6 +1,6 @@
 {
   "name": "clouetb-geth",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "clouetb",
   "summary": "A simple module for installing go-ethereum.",
   "license": "GPL-3.0",

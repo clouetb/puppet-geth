@@ -159,6 +159,7 @@ Pull requests, comments, issues are welcome.
 * 0.5.1 - Service now started after install.
 * 0.5.2 - Changed metadata to comply with puppet forge's recommendation.
 * 0.6.0 - Added a makedag function for pre-generating the DAG (long running operation)
+* 0.6.1 - Fixed a typing error
 
 ## License
 
