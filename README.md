@@ -129,6 +129,12 @@ The parameters for initializing the blockchain
 * String  $passfile
 The file where the account password will be stored
 (default: /home/${user}/passfile)
+* String  $dagdir
+Directory where the DAG will be stored
+(default: /home/${user}/.ethash)
+* Integer $block_number
+The block number for which to generate the DAG
+(default: 0)
 * String  $logdir
 The directory where all the logs will be stored
 (default: /var/log/geth)
@@ -152,6 +158,7 @@ Pull requests, comments, issues are welcome.
 * 0.5 - Initial version published on puppet forge.
 * 0.5.1 - Service now started after install.
 * 0.5.2 - Changed metadata to comply with puppet forge's recommendation.
+* 0.6 - Added a makedag function for pre-generating the DAG (long running operation)
 
 ## License
 

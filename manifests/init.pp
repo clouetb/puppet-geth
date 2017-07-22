@@ -64,6 +64,12 @@
 # * String  $passfile
 # The file where the account password will be stored
 # (default: /home/${user}/passfile)
+# * String  $ethash_path
+# Directory where the DAG will be stored
+# (default: /home/${user}/.ethash)
+# * Integer $block_number
+# The block number for which to generate the DAG
+# (default: 0)
 # * String  $logdir
 # The directory where all the logs will be stored
 # (default: /var/log/geth)
@@ -133,6 +139,8 @@ class geth(
   String  $datadir          = "/home/${user}/data",
   String  $init_data        = "/home/${user}/genesis.json",
   String  $passfile         = "/home/${user}/passfile",
+  String  $ethash_path      = "/home/${user}/.ethash",
+  Integer $block_number     = 0,  
   String  $logdir           = '/var/log/geth',
   String  $account_password = 'P4ssw0rd!',
 )
